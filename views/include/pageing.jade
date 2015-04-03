@@ -1,0 +1,33 @@
+ul.pagination.pagination-sm
+
+
+  li
+    -if(pages.currentPage>1)
+      a(href="#{pages.router}?pageNum=#{parseInt(pages.currentPage) - 1}") 上一页
+    -else
+      a(href="#{pages.router}?pageNum=1") 上一页
+    
+
+
+    each item in pages.totalPages
+      
+      -if(pages.currentPage == null)
+        -pages.currentPage = 1
+        
+      -if(pages.currentPage == item)
+        li.active
+          a(href='#{pages.router}?pageNum=#{item}') #{item}
+      -else
+        li
+          a(href='#{pages.router}?pageNum=#{item}') #{item}
+
+
+  li
+    -if(pages.currentPage == pages.totalPages.length)
+      a(href="#{pages.router}?pageNum=#{pages.currentPage}") 下一页
+    -else
+      a(href="#{pages.router}?pageNum=#{parseInt(pages.currentPage) + 1}") 下一页
+
+
+
+

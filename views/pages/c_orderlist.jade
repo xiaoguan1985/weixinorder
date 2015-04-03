@@ -1,0 +1,43 @@
+extends ../mobile_layout
+
+append head
+  script(src='/javascripts/jquery.pin.js')
+
+block content
+
+
+    div(data-role='header')
+        .ui-mini.ui-btn-left(data-role='controlgroup', data-type='horizontal')
+            a.ui-btn.ui-shadow.ui-corner-all.ui-btn-inline.ui-btn-icon-left.ui-icon-bars(href="#mypanel") 分类
+        h6 面食(5)
+
+
+    ul(data-role='listview', data-split-icon='gear', data-theme="a", data-split-theme='a', data-inset='true')
+
+
+        each item in product
+            li
+                a(href='#')
+                    img(src='/images/album-bb.jpg')
+                    h2 #{item.name}
+                    p #{item.price} ¥
+
+                a.ui-btn.ui-btn-icon-notext.ui-icon-plus.ui-btn-a(href='#purchase', data-theme='a', data-rel='popup', data-position-to='window', data-transition='pop', aria-haspopup='true', aria-owns='purchase', aria-expanded='false', title='Purchase album')
+
+    //弹出层
+    #mypanel.ui-panel.ui-panel-position-left.ui-panel-display-overlay.ui-body-a.ui-panel-animate.ui-panel-closed(data-role='panel', data-position='left', data-display='overlay', data-theme='a')
+        .ui-panel-inner(style="padding-left:0;padding-right:0")
+            //a.ui-btn.ui-icon-delete.ui-btn-icon-notext.ui-corner-all(href='#mypanel') No text
+
+            ul(data-role='listview', data-count-theme='b', data-inset='true')
+
+                each item in category
+                    li
+                        a(href="/customer/category/#{item.id}", style="font-size:12px;") #{item.name}
+
+
+
+
+
+
+

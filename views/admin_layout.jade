@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    block head
+      title= title
+      link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+      link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+      script(src='/javascripts/jquery-1.11.1.js')
+      script(src='/javascripts/bootstrap.js')
+      
+
+  body
+
+    include ./include/admin_header
+
+    block content
+
+script.
+
+  $(document).ready(function(){
+
+  })
+      
+      

@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    block head
+      meta(name="renderer" content="webkit")
+      meta(name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0")
+      title= title
+      link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+      script(src='/javascripts/jquery-1.11.1.js')
+      script(src='/javascripts/bootstrap.min.js')
+
+
+  body
+    block content
+
+
+    script.
+      if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement('style')
+        msViewportStyle.appendChild(
+          document.createTextNode(
+            '@-ms-viewport{width:auto!important}'
+          )
+        )
+        document.querySelector('head').appendChild(msViewportStyle)
+      }
+

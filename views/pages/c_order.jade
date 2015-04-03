@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  
+  div.container-fluid
+
+    div.row
+      div.col-xs-12
+        img()
+
+    div.row
+      div.col-xs-12
+        a.btn.btn-primary.ordertype(type="button")  我的订单
+
+    hr
+
+    div.row.order
+      div.col-xs-6
+        a.btn.btn-primary.ordertype(href="/customer/orders")  外卖
+      div.col-xs-6
+        a.btn.btn-primary.ordertype(type="button")  预定
+
+    div.row.order
+      div.col-xs-6
+        a.btn.btn-primary.ordertype(type="button")  商家信息
+      div.col-xs-6
+        a.btn.btn-primary.ordertype(type="button")  优惠活动

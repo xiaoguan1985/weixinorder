@@ -1,0 +1,145 @@
+extends ../admin_layout
+
+block content
+  
+  div.container(style='margin-top:50px;')
+    div.toolbar
+      span 餐品管理 》
+      a#addProduct(data-toggle="modal") 添加餐品
+    
+    div
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 编号
+            th 名称
+            th 价格/¥
+            th 单位
+            th 分类
+            th 口味
+            th 操作
+        tbody
+           each item in products
+            tr
+              td 
+                a(href='/admin/product/#{item.id}') #{item.id}
+              td #{item.name}
+              td #{item.price}
+              td #{item.Unit.name}
+              td #{item.Category.name}
+              td #{item.Taste.name}
+              td 
+                
+                a.modify(target='#{item.id}', targetcname='#{item.name}') 修改
+                span.table-span |
+                a.delete(target='#{item.id}') 删除
+
+
+    div.row          
+      div.col-xs-12.center
+        include ../include/pageing.jade
+
+ 
+  #myModal.modal.fade.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#exampleModalLabel.modal-title 添加分类
+        .modal-body
+          form.form-horizontal#product_form(role="form",action="/admin/product/add",method="post")
+            .form-group
+              label.col-sm-2.control-label(for='name') 名称
+              .col-sm-10
+                input#cname.form-control(type='text', name="cname" placeholder='名称')
+                input#productId(type='hidden', name='productId', value='')
+
+            .form-group
+              label.col-sm-2.control-label(for='name') 价格
+              .col-sm-10
+                input#price.form-control(type='text', name="price" placeholder='价格')
+
+            .form-group
+              label.col-sm-2.control-label 分类
+              div.col-sm-10
+                each item in categories
+                  label.radio-inline
+                    input(type="radio", required, name='categoryID', value="#{item.id}")
+                    p #{item.name}
+
+            .form-group
+              label.col-sm-2.control-label 单位
+              div.col-sm-10
+                each item in units
+                  label.radio-inline
+                    input(type="radio", required, name='unitID', value="#{item.id}")
+                    p #{item.name}
+
+            .form-group
+              label.col-sm-2.control-label 口味
+              div.col-sm-10
+                each item in tastes
+                  label.radio-inline
+                    input(type="radio", required, name='tasteID', value="#{item.id}")
+                    p #{item.name}
+
+            .form-group
+              label.col-sm-2.control-label 缩略图
+              div.col-sm-10
+                //-if(item.icon != '')
+                    image(style='widht:100px;height:100px;',src='/#{article.icon}') !{article.iconname}
+                input(type="file", name='icon')
+
+
+
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+            button.btn.btn-primary#submit(type='button') 提交
+         
+  
+  script.
+
+    $(document).ready(function(){
+      
+      $('#addProduct').on('click', function () {
+
+        $('#myModal').modal({backdrop: true});
+
+        $('#cname').focus();
+      });
+
+      //提交
+      $('#submit').bind('click', function () {
+
+
+        $('#product_form').submit();
+      });
+
+
+      //修改
+      $(".modify").bind('click', function () {
+
+
+        $('#myModal').modal({backdrop: true});
+
+
+        $('#cname').val($(this).attr("targetcname"));
+        $('#productId').val($(this).attr("target"));
+
+      });
+
+      //delete
+      $(".delete").bind('click', function () {
+
+        $('#cname').val($(this).attr("targetcname"));
+        $('#productId').val($(this).attr("target"));
+
+      });
+
+
+    })
+  
+
+
+

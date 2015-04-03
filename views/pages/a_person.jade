@@ -1,0 +1,79 @@
+//
+   Created by apple on 15/3/9.
+
+extends ../admin_layout
+block content
+    div.container(style='margin-top:50px;')
+        div.toolbar
+            span 用户管理 》
+            a#addTaste(data-toggle="modal") 添加用户
+        div
+            table.table.table-hover.table-bordered
+                thead
+                    tr
+                        th 标题
+                        th 分类
+                        th 操作
+                tbody
+                    each item in personList
+                        tr
+                            td
+                                a(href='/admin/taste/#{item.id}') #{item.id}
+                            td #{item.name}
+                            td
+                                a.modify(target='#{item.id}', targetcname='#{item.name}') 修改
+                                span.table-span |
+                                a.delete(target='#{item.id}') 删除
+        div.row
+            div.col-xs-12.center
+                include ../include/pageing.jade
+
+    #myModal.modal.fade.in(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    h4#exampleModalLabel.modal-title 添加分类
+                .modal-body
+                    form.form-horizontal#taste_form(role="form",action="/admin/Taste/add",method="post")
+                        .form-group
+                            label.col-sm-2.control-label(for='name') 名称
+                            .col-sm-10
+                                input#cname.form-control(type='text', name="cname" placeholder='名称')
+                                input#TasteId(type='hidden', name='TasteId', value='')
+                        .form-group
+                            label.col-sm-2.control-label(for='name') 管理员
+                            .col-sm-10
+                                label.radio-inline
+                                    input(type="radio", required, name='tasteID', value=0)
+                                    p 是
+                                label.radio-inline
+                                    input(type="radio", required, name='tasteID', value=0)
+                                    p 否
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                    button.btn.btn-primary#submit(type='button') 提交
+
+    script.
+        $(document).ready(function(){
+          $('#addTaste').on('click', function () {
+            $('#myModal').modal({backdrop: true});
+            $('#cname').focus();
+          });
+          //提交
+          $('#submit').bind('click', function () {
+            $('#taste_form').submit();
+          });
+          //修改
+          $(".modify").bind('click', function () {
+            $('#myModal').modal({backdrop: true});
+            $('#cname').val($(this).attr("targetcname"));
+            $('#tasteId').val($(this).attr("target"));
+          });
+          //delete
+          $(".delete").bind('click', function () {
+            $('#cname').val($(this).attr("targetcname"));
+            $('#tasteId').val($(this).attr("target"));
+          });
+        })
